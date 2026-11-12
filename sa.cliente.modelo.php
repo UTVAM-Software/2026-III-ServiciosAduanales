@@ -7,12 +7,12 @@ class ModeloCliente {
     private $nombre;
     private $rfc;
     private $razon_social;
-    public function __construct() {
+    public function __construct($id=0, $nombre="", $rfc="", $razon_social="") {
         $this->bd = new BD();
-        $this->id = 0;
-        $this->nombre = "";
-        $this->rfc = "";
-        $this->razon_social = "";
+        $this->id = $id;
+        $this->nombre = $nombre;
+        $this->rfc = $rfc;
+        $this->razon_social = $razon_social;
     }
     public function save() {
         if ($this->id == 0) {
@@ -31,5 +31,25 @@ class ModeloCliente {
             $this->rfc = "";
             $this->razon_social = "";
         }
+    }
+    public function get($id) {
+        $res = self::$bd->seleccionar("cliente", "*", "id=$id");
+        if (count($res) > 0) {
+            $this->id = $res[0]['id'];
+            $this->nombre = $res[0]['nombre'];
+            $this->rfc = $res[0]['rfc'];
+            $this->razon_social = $res[0]['razon_social'];
+        } else {
+            throw new Exception("No se encontro el cliente $id");
+        }
+    }
+    public function all()
+    {
+        $res = self::$bd->seleccionar("cliente", "*", "");
+        $clientes = [];
+        foreach ($res as $row) {
+            $clientes[] = new ModeloCliente($row['id'], $row['nombre'], $row['rfc'], $row['razon_social']);
+        }
+        return $clientes;
     }
 }
