@@ -21,7 +21,12 @@ class BD
     public function query($query)
     {
         $this->conectar();
-        return self::$cnn->query($query);
+        try {
+            return self::$cnn->query($query);
+        } catch (Exception $e) {
+            echo "<br />$e";
+            echo "<br />$query";
+        }
     }
     public function insertar($tabla, $campos, $valores)
     {
@@ -29,7 +34,7 @@ class BD
         $query = "
         INSERTO INTO $tabla ($campos) VALUES ($valores);
         ";
-        self::$cnn->query($query);
+        $this->query($query);
     }
 
     public function seleccionar($tabla, $campos, $filtro = "1=1")
@@ -38,7 +43,7 @@ class BD
         $query = "
             SELECT $campos FROM $tabla WHERE $filtro;
         ";
-        $resultado = self::$cnn->query($query);
+        $resultado = $this->query($query);
         return $resultado->fetch_all(MYSQLI_ASSOC);
     }
 
@@ -48,7 +53,7 @@ class BD
         $query = "
             DELETE FROM $tabla WHERE $filtro;
         ";
-        self::$cnn->query($query);
+        $this->query($query);
     }
 
     public function modificar($tabla, $campos_valores, $filtro = "1=1")
@@ -57,7 +62,7 @@ class BD
         $query = "
             UPDATE $tabla SET $campos_valores WHERE $filtro;
         ";
-        self::$cnn->query($query);
+        $this->query($query);
     }
 
 }

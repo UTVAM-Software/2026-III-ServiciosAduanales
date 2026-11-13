@@ -5,7 +5,7 @@ function AddHeader() {
         <nav class="navbar md:navbar-expand bg-1" data-bs-theme="dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="sa.brand.png" width="30" height="30" />
+                    <img src="assets/img/brand.png" width="30" height="30" />
                     Servicios Aduanales
                 </a>
                 <button class="btn-icon navbar-toggler" type="button" data-bs-toggle="drawer"

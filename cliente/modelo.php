@@ -1,12 +1,12 @@
 <?php
-require_once("sa.basedatos.php");
+require_once("helpers/basedatos.php");
 
-class ModeloCliente {
+class Cliente {
     private $bd;
-    private $id;
-    private $nombre;
-    private $rfc;
-    private $razon_social;
+    public $id;
+    public $nombre;
+    public $rfc;
+    public $razon_social;
     public function __construct($id=0, $nombre="", $rfc="", $razon_social="") {
         $this->bd = new BD();
         $this->id = $id;
@@ -33,7 +33,7 @@ class ModeloCliente {
         }
     }
     public function get($id) {
-        $res = self::$bd->seleccionar("cliente", "*", "id=$id");
+        $res = $this->bd->seleccionar("cliente", "*", "id=$id");
         if (count($res) > 0) {
             $this->id = $res[0]['id'];
             $this->nombre = $res[0]['nombre'];
@@ -45,10 +45,10 @@ class ModeloCliente {
     }
     public function all()
     {
-        $res = self::$bd->seleccionar("cliente", "*", "");
+        $res = $this->bd->seleccionar("cliente", "*");
         $clientes = [];
         foreach ($res as $row) {
-            $clientes[] = new ModeloCliente($row['id'], $row['nombre'], $row['rfc'], $row['razon_social']);
+            $clientes[] = new Cliente($row['id'], $row['nombre'], $row['rfc'], $row['razon_social']);
         }
         return $clientes;
     }
