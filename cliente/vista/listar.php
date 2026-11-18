@@ -28,7 +28,7 @@
                     ?>
                     <tr>
                         <td>
-                            <a href="sa.clientes.detalle.php?id=<?php echo $cte->id; ?>">
+                            <a href="clientes.php?id=<?php echo $cte->id; ?>&accion=mostrar">
                                 <?php echo $cte->nombre; ?>
                             </a>
                         </td>

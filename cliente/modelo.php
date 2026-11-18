@@ -52,4 +52,7 @@ class Cliente {
         }
         return $clientes;
     }
+    public function __toString() {
+        return $this->nombre;
+    }
 }
