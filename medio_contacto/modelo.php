@@ -31,36 +31,38 @@ class MedioContacto
     public function delete()
     {
         if ($this->id != 0) {
-            $this->bd->eliminar("cliente", "id=$this->id");
+            $this->bd->eliminar("medio_contacto", "id=$this->id");
             $this->id = 0;
-            $this->nombre = "";
-            $this->rfc = "";
-            $this->razon_social = "";
+            $this->cliente_id = 0;
+            $this->proveedor_id = 0;
+            $this->tipo = "";
+            $this->valor = "";
         }
     }
     public function get($id)
     {
-        $res = $this->bd->seleccionar("cliente", "*", "id=$id");
+        $res = $this->bd->seleccionar("medio_contacto", "*", "id=$id");
         if (count($res) > 0) {
             $this->id = $res[0]['id'];
-            $this->nombre = $res[0]['nombre'];
-            $this->rfc = $res[0]['rfc'];
-            $this->razon_social = $res[0]['razon_social'];
+            $this->cliente_id = $res[0]['cliente_id'];
+            $this->proveedor_id = $res[0]['proveedor_id'];
+            $this->tipo = $res[0]['tipo'];
+            $this->valor = $res[0]['valor'];
         } else {
             throw new Exception("No se encontro el cliente $id");
         }
     }
-    public function all()
+    public function all($filtro = "1 = 1")
     {
-        $res = $this->bd->seleccionar("cliente", "*");
-        $clientes = [];
+        $res = $this->bd->seleccionar("medio_contacto", "*", $filtro);
+        $medios_contacto = [];
         foreach ($res as $row) {
-            $clientes[] = new Cliente($row['id'], $row['nombre'], $row['rfc'], $row['razon_social']);
+            $medios_contacto[] = new MedioContacto($row['id'], $row['cliente_id'], $row['proveedor_id'], $row['tipo'], $row['valor']);
         }
-        return $clientes;
+        return $medios_contacto;
     }
     public function __toString()
     {
-        return $this->nombre;
+        return $this->tipo . ": " . $this->valor;
     }
 }
