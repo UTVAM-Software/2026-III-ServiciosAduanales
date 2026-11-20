@@ -140,11 +140,11 @@ abstract class Modelo
         $res = $this->bd->seleccionar($this->tabla, "*", $filtro);
         $objetos = [];
         foreach ($res as $row) {
-            $objetos[] = new static($row['id'], $row, $this->tabla);
+            $objetos[] = new static(...$row);
         }
         return $objetos;
     }
-    /*public function __get($name)
+    public function __get($name)
     {
         if (array_key_exists($name, $this->atributos)) {
             return $this->atributos[$name];
@@ -158,6 +158,6 @@ abstract class Modelo
         } else {
             throw new Exception("Atributo $name no existe en " . $this->tabla);
         }
-    }*/
+    }
     public abstract function __toString();
 }

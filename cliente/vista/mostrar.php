@@ -49,23 +49,23 @@
     <div class="col">
         <h2>Medios de Contacto</h2>
         <ul class="list-group">
-            <?php foreach ($medios_contacto as $mc) { ?>
+            <?php foreach ($cte->medios_contacto() as $mc) { ?>
                 <li class="list-group-item">
                     <?php
-                    if ($mc["tipo"] == 'whats app') {
+                    if ($mc->tipo == 'whats app') {
                         echo '<i class="bi bi-whatsapp"></i>';
-                    } else if ($mc["tipo"] == 'facebook') {
+                    } else if ($mc->tipo == 'facebook') {
                         echo '<i class="bi bi-facebook"></i>';
-                    } else if ($mc["tipo"] == 'instagram') {
+                    } else if ($mc->tipo == 'instagram') {
                         echo '<i class="bi bi-instagram"></i>';
-                    } else if ($mc["tipo"] == 'messenger') {
+                    } else if ($mc->tipo == 'messenger') {
                         echo '<i class="bi bi-messenger"></i>';
-                    } else if ($mc["tipo"] == 'telefono') {
+                    } else if ($mc->tipo == 'telefono') {
                         echo '<i class="bi bi-telephone-fill"></i>';
-                    } else if ($mc["tipo"] == 'correo') {
+                    } else if ($mc->tipo == 'correo') {
                         echo '<i class="bi bi-envelope-at-fill"></i>';
                     }
-                    echo " " . $valor;
+                    echo " " . $mc->valor;
                     ?>
                 </li>
             <?php } ?>
@@ -83,20 +83,20 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    <?php foreach ($edificios as $ed) {
+                    <?php foreach ($cte->edificios() as $ed) {
                         ?>
                         <tr>
-                            <td><?php echo $ed["nombre"]; ?></td>
-                            <td class="text-capitalize"><?php echo $ed["tipo"]; ?></td>
+                            <td><?php echo $ed->nombre; ?></td>
+                            <td class="text-capitalize"><?php echo $ed->tipo; ?></td>
                             <td>
-                                <?php echo $ed["calle"]; ?>
-                                <?php echo $ed["num_ext"]; ?>
-                                <?php echo $ed["num_int"] ? " (Int. " . $ed["num_int"] . ")" : ""; ?>,
+                                <?php echo $ed->calle; ?>
+                                <?php echo $ed->num_ext; ?>
+                                <?php echo $ed->num_int ? " (Int. " . $ed->num_int . ")" : ""; ?>,
                                 <br />
-                                <?php echo $ed["colonia"]; ?>, <br />
-                                <?php echo $ed["municipio"]; ?>, <?php echo $ed["estado"]; ?>, <br />
-                                <?php echo $ed["pais"]; ?><br />
-                                C.P. <?php echo $ed["cp"]; ?>
+                                <?php echo $ed->colonia; ?>, <br />
+                                <?php echo $ed->municipio; ?>, <?php echo $ed->estado; ?>, <br />
+                                <?php echo $ed->pais; ?><br />
+                                C.P. <?php echo $ed->cp; ?>
                             </td>
                         </tr>
                         <?php
